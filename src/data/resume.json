@@ -1,0 +1,51 @@
+{
+  "basics": {
+    "name": "Greg",
+    "label": "Software Engineer",
+    "location": {
+      "city": "Bardstown",
+      "region": "KY"
+    },
+    "summary": "Software Engineer at Baptist Health overseeing Data Archiving infrastructure."
+  },
+  "work": [
+    {
+      "name": "Baptist Health",
+      "position": "Software Engineer",
+      "startDate": "2013-01-01", 
+      "summary": "Overseeing Data Archiving infrastructure using OpenText InfoArchive, PostgreSQL, and Apache Tomcat.",
+      "highlights": [
+        "Managed Data Archiving infrastructure",
+        "Utilized OpenText InfoArchive",
+        "Maintained PostgreSQL databases",
+        "Deployed applications on Apache Tomcat",
+        "Developed with JavaScript and AngularJS"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Lincoln Christian University",
+      "area": "Computer Science",
+      "studyType": "Bachelor"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Data Archiving",
+      "keywords": ["OpenText InfoArchive"]
+    },
+    {
+      "name": "Database",
+      "keywords": ["PostgreSQL"]
+    },
+    {
+      "name": "Server",
+      "keywords": ["Apache Tomcat"]
+    },
+    {
+      "name": "Frontend",
+      "keywords": ["JavaScript", "AngularJS"]
+    }
+  ]
+}

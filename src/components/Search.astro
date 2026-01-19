@@ -1,0 +1,128 @@
+---
+// src/components/Search.astro
+---
+
+<div id="search-container" class="relative w-full max-w-xl mx-auto">
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search articles and projects..."
+      class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out"
+    />
+  </div>
+  
+  <div
+    id="search-results"
+    class="absolute z-50 w-full mt-1 bg-white rounded-md shadow-lg hidden overflow-hidden ring-1 ring-black ring-opacity-5"
+  >
+    <!-- Results injected via script -->
+  </div>
+</div>
+
+<script>
+  interface SearchItem {
+    title: string;
+    description: string;
+    tags: string[];
+    type: 'blog' | 'project';
+    slug: string;
+    date: string;
+  }
+
+  let searchIndex: SearchItem[] = [];
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results');
+  let isLoading = false;
+
+  async function loadSearchIndex() {
+    if (searchIndex.length > 0 || isLoading) return;
+    isLoading = true;
+    
+    try {
+      const response = await fetch('/search-index.json');
+      searchIndex = await response.json();
+    } catch (error) {
+      console.error('Error loading search index:', error);
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  function displayResults(results: SearchItem[]) {
+    if (!searchResults) return;
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = `
+        <div class="px-4 py-3 text-sm text-gray-500">
+          No results found.
+        </div>
+      `;
+    } else {
+      searchResults.innerHTML = `
+        <ul class="max-h-96 overflow-y-auto py-1">
+          ${results.map(item => `
+            <li>
+              <a href="${item.slug}" class="block px-4 py-3 hover:bg-gray-50 transition duration-150 ease-in-out">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-medium text-blue-600 truncate">
+                    ${item.title}
+                  </p>
+                  <div class="ml-2 flex-shrink-0 flex">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.type === 'project' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'}">
+                      ${item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-1">
+                  <p class="text-sm text-gray-500 line-clamp-1">
+                    ${item.description}
+                  </p>
+                </div>
+              </a>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+    
+    searchResults.classList.remove('hidden');
+  }
+
+  // Event Listeners
+  searchInput?.addEventListener('focus', loadSearchIndex);
+  
+  searchInput?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    if (query.length === 0) {
+      searchResults?.classList.add('hidden');
+      return;
+    }
+
+    // Wait for index if user types fast immediately after load
+    if (searchIndex.length === 0) {
+       // Simple retry logic could go here, but for now we rely on focus
+       return;
+    }
+
+    const filtered = searchIndex.filter(item => {
+      const searchable = `${item.title} ${item.description} ${item.tags.join(' ')}`.toLowerCase();
+      return searchable.includes(query);
+    });
+
+    displayResults(filtered);
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!searchInput?.contains(e.target as Node) && !searchResults?.contains(e.target as Node)) {
+      searchResults?.classList.add('hidden');
+    }
+  });
+</script>

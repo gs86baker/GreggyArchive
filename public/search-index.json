@@ -1,0 +1,114 @@
+[
+  {
+    "id": "blog-why-i-use-astro",
+    "type": "blog",
+    "title": "Why I Use Astro for Everything Now",
+    "description": "Astro changed how I think about web development. Zero JavaScript by default, content-first architecture, and genuinely fast sites.",
+    "tags": [
+      "astro",
+      "web-development",
+      "static-sites",
+      "performance"
+    ],
+    "pubDate": "2025-01-05T00:00:00.000Z",
+    "content": "\ni've built websites with just about every framework out there. react, vue, svelte, next.js, nuxt, sveltekit—the list goes on. each had their strengths, but they all shared one problem: they shipped too much javascript to the browser. for content-focused sites, that overhead never made sense.\n\n the zero-js default\n\nastro's \"zero javascript by default\" approach clicked immediately. when i build a blog post page, the browser receives html and css. that's it. no hydration, no framework runtime, no ",
+    "url": "/blog/why-i-use-astro"
+  },
+  {
+    "id": "blog-moving-to-bun",
+    "type": "blog",
+    "title": "Moving to Bun: A Pragmatic Take",
+    "description": "After years with Node.js, I finally made the switch to Bun. Here's what worked, what didn't, and whether it's worth the migration effort.",
+    "tags": [
+      "bun",
+      "javascript",
+      "tooling",
+      "nodejs"
+    ],
+    "pubDate": "2024-12-15T00:00:00.000Z",
+    "content": "\nafter spending the better part of a decade with node.js, switching runtimes felt like a big decision. bun had been on my radar since its initial release, but i waited until it hit 1.0 before taking it seriously for production work. the promise of faster installs, native typescript support, and a unified toolkit was appealing, but promises don't ship software.\n\n the migration experience\n\nthe actual migration was surprisingly smooth. most of my existing node.js code ran without modification. the ",
+    "url": "/blog/moving-to-bun"
+  },
+  {
+    "id": "blog-database-archiving-strategies",
+    "type": "blog",
+    "title": "Database Archiving Strategies That Actually Work",
+    "description": "Lessons learned from archiving petabytes of healthcare data. Compliance, performance, and the hidden costs of keeping everything forever.",
+    "tags": [
+      "databases",
+      "archiving",
+      "postgresql",
+      "data-management"
+    ],
+    "pubDate": "2025-01-10T00:00:00.000Z",
+    "content": "\nin healthcare it, you can't just delete old records. regulatory requirements mandate retention periods measured in decades. but keeping everything in your primary database forever is a recipe for performance problems, backup nightmares, and storage costs that compound annually. finding the balance between accessibility and efficiency is the core challenge of data archiving.\n\n the tiered storage approach\n\nwe settled on a three-tier model. hot data—anything accessed in the last two years—lives in",
+    "url": "/blog/database-archiving-strategies"
+  },
+  {
+    "id": "project-personal-dashboard",
+    "type": "project",
+    "title": "Personal Dashboard",
+    "description": "A self-hosted dashboard aggregating data from various services into a single, customizable interface.",
+    "tags": [
+      "dashboard",
+      "self-hosted",
+      "productivity"
+    ],
+    "techStack": [
+      "Astro",
+      "TypeScript",
+      "Tailwind CSS",
+      "SQLite"
+    ],
+    "status": "Active",
+    "pubDate": "2024-03-15T00:00:00.000Z",
+    "content": "\ni got tired of checking multiple services every morning. github notifications, calendar events, weather, server status, rss feeds—each required opening a different tab or app. personal dashboard consolidates everything into a single page that loads in under a second.\n\n architecture\n\nthe dashboard is built with astro for fast initial loads and selective hydration. data from external services is fetched server-side during build or via lightweight api routes. sqlite stores cached responses and use",
+    "url": "/projects/personal-dashboard",
+    "githubLink": "https://github.com/username/personal-dashboard",
+    "demoLink": "https://dashboard-demo.example.com"
+  },
+  {
+    "id": "project-legacy-migrator",
+    "type": "project",
+    "title": "Legacy System Migrator",
+    "description": "A toolkit for migrating data from legacy healthcare systems to modern platforms with full audit trails and validation.",
+    "tags": [
+      "migration",
+      "healthcare",
+      "data-transformation"
+    ],
+    "techStack": [
+      "Python",
+      "PostgreSQL",
+      "Apache Kafka",
+      "Docker"
+    ],
+    "status": "Archived",
+    "pubDate": "2023-06-10T00:00:00.000Z",
+    "content": "\nhealthcare organizations often run critical systems that are decades old. when it's finally time to modernize, migrating patient data is the hardest part. legacy migrator was built to handle exactly this problem—extracting data from systems with outdated formats, transforming it to modern standards, and loading it into new platforms without data loss.\n\n the challenge\n\nlegacy systems rarely export data cleanly. we dealt with fixed-width files, proprietary binary formats, and databases with no do",
+    "url": "/projects/legacy-migrator",
+    "githubLink": "https://github.com/username/legacy-migrator"
+  },
+  {
+    "id": "project-archive-utility",
+    "type": "project",
+    "title": "Archive Utility",
+    "description": "A CLI tool for automating data archival workflows with support for multiple storage backends and configurable retention policies.",
+    "tags": [
+      "cli",
+      "data-management",
+      "automation"
+    ],
+    "techStack": [
+      "TypeScript",
+      "Bun",
+      "PostgreSQL",
+      "S3"
+    ],
+    "status": "Active",
+    "pubDate": "2024-08-20T00:00:00.000Z",
+    "content": "\narchive utility started as an internal tool to solve a recurring problem: moving aging data between storage tiers without manual intervention. what began as a simple script evolved into a configurable system that handles our entire archival pipeline.\n\n how it works\n\nthe utility connects to your primary database and evaluates records against user-defined retention policies. records matching archival criteria are extracted, compressed, and written to the configured storage backend—currently suppo",
+    "url": "/projects/archive-utility",
+    "githubLink": "https://github.com/username/archive-utility"
+  }
+]

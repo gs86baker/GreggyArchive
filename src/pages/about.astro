@@ -1,0 +1,129 @@
+---
+import Layout from "../layouts/Layout.astro";
+import resume from "../data/resume.json";
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "short" });
+};
+---
+
+<Layout title={`${resume.basics.name} - About`} description={resume.basics.summary}>
+   <div class="mx-auto max-w-4xl px-4 py-8 print:block print:w-full print:max-w-none print:p-0">
+    <!-- Print Button -->
+    <div class="mb-8 flex justify-end print:hidden">
+      <button
+        onclick="window.print()"
+        class="inline-flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
+      >
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+          ></path>
+        </svg>
+        Print Resume
+      </button>
+    </div>
+
+    <!-- Resume Content -->
+    <article class="print:text-[11pt]">
+      <!-- Header Section -->
+      <header class="mb-8 border-b border-gray-300 pb-6 print:mb-4 print:pb-4">
+        <h1 class="mb-1 text-4xl font-bold tracking-tight text-gray-900 print:text-3xl">
+          {resume.basics.name}
+        </h1>
+        <p class="mb-2 text-xl text-gray-600 print:text-lg">
+          {resume.basics.label}
+        </p>
+        <p class="text-gray-500 print:text-sm">
+          {resume.basics.location.city}, {resume.basics.location.region}
+        </p>
+      </header>
+
+      <!-- Summary Section -->
+      <section class="mb-8 print:mb-5">
+        <h2 class="mb-3 border-b border-gray-200 pb-2 text-sm font-bold uppercase tracking-wider text-gray-900 print:mb-2 print:text-xs">
+          Summary
+        </h2>
+        <p class="leading-relaxed text-gray-700 print:text-sm print:leading-normal">
+          {resume.basics.summary}
+        </p>
+      </section>
+
+      <!-- Work Experience Section -->
+      <section class="mb-8 print:mb-5">
+        <h2 class="mb-4 border-b border-gray-200 pb-2 text-sm font-bold uppercase tracking-wider text-gray-900 print:mb-3 print:text-xs">
+          Experience
+        </h2>
+        {
+          resume.work.map((job) => (
+            <div class="mb-6 print:mb-4">
+              <div class="mb-1 flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="text-lg font-semibold text-gray-900 print:text-base">
+                  {job.position}
+                </h3>
+                <span class="text-sm font-medium text-gray-500 print:text-xs">
+                  {formatDate(job.startDate)} - Present
+                </span>
+              </div>
+              <p class="mb-2 font-medium text-gray-600 print:mb-1 print:text-sm">
+                {job.name}
+              </p>
+              <p class="mb-3 text-gray-700 print:mb-2 print:text-sm">
+                {job.summary}
+              </p>
+              <ul class="list-inside list-disc space-y-1 text-gray-700 print:space-y-0 print:text-sm">
+                {job.highlights.map((highlight) => (
+                  <li class="print:leading-snug">{highlight}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </section>
+
+      <!-- Education Section -->
+      <section class="mb-8 print:mb-5">
+        <h2 class="mb-4 border-b border-gray-200 pb-2 text-sm font-bold uppercase tracking-wider text-gray-900 print:mb-3 print:text-xs">
+          Education
+        </h2>
+        {
+          resume.education.map((edu) => (
+            <div class="mb-3 print:mb-2">
+              <h3 class="text-lg font-semibold text-gray-900 print:text-base">
+                {edu.studyType} in {edu.area}
+              </h3>
+              <p class="text-gray-600 print:text-sm">{edu.institution}</p>
+            </div>
+          ))
+        }
+      </section>
+
+      <!-- Skills Section -->
+      <section>
+        <h2 class="mb-4 border-b border-gray-200 pb-2 text-sm font-bold uppercase tracking-wider text-gray-900 print:mb-3 print:text-xs">
+          Skills
+        </h2>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 print:grid-cols-4 print:gap-3">
+          {
+            resume.skills.map((skill) => (
+              <div>
+                <h3 class="mb-1 font-semibold text-gray-900 print:text-sm">
+                  {skill.name}
+                </h3>
+                <p class="text-sm text-gray-600 print:text-xs">
+                  {skill.keywords.join(", ")}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </article>
+  </div>
+</Layout>
+
+
