@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Projects" description="A showcase of my software projects.">
+	<main class="mx-auto max-w-6xl px-4 py-12">
+		<header class="mb-12 border-b border-gray-200 pb-8">
+			<h1 class="mb-4 text-4xl font-bold tracking-tight text-gray-900">Projects</h1>
+			<p class="text-xl text-gray-600">A showcase of my work, experiments, and open source contributions.</p>
+		</header>
+		
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				projects.map((project) => (
+					<ProjectCard
+						title={project.data.title}
+						description={project.data.description}
+						status={project.data.status}
+						techStack={project.data.techStack}
+						slug={project.slug}
+						githubLink={project.data.githubLink}
+						demoLink={project.data.demoLink}
+					/>
+				))
+			}
+		</div>
+	</main>
+</Layout>

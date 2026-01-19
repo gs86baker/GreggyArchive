@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Blog" description="Recent thoughts and articles.">
+	<main class="mx-auto max-w-3xl px-4 py-12">
+		<header class="mb-12">
+			<h1 class="mb-4 text-4xl font-bold tracking-tight text-gray-900">Blog</h1>
+			<p class="text-xl text-gray-600">Recent thoughts, tutorials, and insights.</p>
+		</header>
+		
+		<section class="space-y-4">
+			{
+				posts.map((post) => (
+					<BlogCard
+						title={post.data.title}
+						description={post.data.description}
+						pubDate={post.data.pubDate}
+						tags={post.data.tags}
+						slug={post.slug}
+					/>
+				))
+			}
+		</section>
+	</main>
+</Layout>
